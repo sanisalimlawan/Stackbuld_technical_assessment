@@ -30,7 +30,7 @@ namespace Infrastracture.Data
                     .Build();
 
                 // Set up the DbContext to use the connection string from appsettings.json
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyOrDbContextConnection"));
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("StackbuldConnection"));
 
                 return new MyDbContext(optionsBuilder.Options);
             }
@@ -38,7 +38,7 @@ namespace Infrastracture.Data
         public DbSet<Product> products { get; set; }
         public DbSet<Order> orders { get; set; }
         public DbSet<OrderItem> ordersItem { get; set; }
-        public DbSet<Costumer> costumers { get; set; }
+        public DbSet<Costumer> Costumers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,7 @@ namespace Infrastracture.Data
             modelBuilder.Entity<Product>(builder =>
             {
                 builder.HasKey(p => p.Id);
+                builder.ToTable("products");
                 builder.Property(p => p.Name)
                        .HasColumnName("name")
                        .IsRequired()
@@ -95,6 +96,7 @@ namespace Infrastracture.Data
             modelBuilder.Entity<Order>(builder =>
             {
                 builder.HasKey(o => o.Id);
+                builder.ToTable("orders");
                 builder.HasMany(o => o.orderItems)
                        .WithOne(o => o.Order)
                        .HasForeignKey(o => o.OrderId)
@@ -108,6 +110,7 @@ namespace Infrastracture.Data
             modelBuilder.Entity<OrderItem>(builder =>
             {
                 builder.HasKey(oi => oi.Id);
+                builder.ToTable("order_items");
                 builder.Property(oi => oi.Quantity)
                        .HasColumnName("quantity")
                        .IsRequired();
@@ -126,6 +129,7 @@ namespace Infrastracture.Data
             modelBuilder.Entity<Costumer>(builder =>
             {
                 builder.HasKey(c => c.Id);
+                builder.ToTable("Costumers");
                 builder.Property(c => c.Email)
                        .HasColumnName("email")
                        .IsRequired().HasMaxLength(50);

@@ -10,7 +10,7 @@ namespace Api.config
         {
             if (!await context.orders.AnyAsync())
             {
-                var customer = await context.costumers.FirstOrDefaultAsync();
+                var customer = await context.Costumers.FirstOrDefaultAsync();
                 var products = await context.products.Take(2).ToListAsync();
 
                 if (customer == null || !products.Any())
@@ -45,7 +45,7 @@ namespace Api.config
 
         public async static Task SeedCustomersAsync(this MyDbContext context)
         {
-            if (!await context.costumers.AnyAsync())
+            if (!await context.Costumers.AnyAsync())
             {
                 var customers = new List<Costumer>
         {
@@ -91,7 +91,7 @@ namespace Api.config
             }
         };
 
-                await context.costumers.AddRangeAsync(customers);
+                await context.Costumers.AddRangeAsync(customers);
                 await context.SaveChangesAsync();
             }
         }

@@ -68,7 +68,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("costumers");
+                    b.ToTable("Costumers", (string)null);
                 });
 
             modelBuilder.Entity("Infrastracture.Entities.Order", b =>
@@ -106,7 +106,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("CosumerId");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("Infrastracture.Entities.OrderItem", b =>
@@ -157,7 +157,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ordersItem");
+                    b.ToTable("order_items", (string)null);
                 });
 
             modelBuilder.Entity("Infrastracture.Entities.Product", b =>
@@ -216,7 +216,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("products");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("Infrastracture.Entities.Order", b =>
@@ -241,7 +241,7 @@ namespace Infrastracture.Migrations
                     b.HasOne("Infrastracture.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Order");

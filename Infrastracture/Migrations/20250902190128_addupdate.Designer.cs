@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastracture.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250902141714_addcostumertable")]
-    partial class addcostumertable
+    [Migration("20250902190128_addupdate")]
+    partial class addupdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("costumers");
+                    b.ToTable("Costumers", (string)null);
                 });
 
             modelBuilder.Entity("Infrastracture.Entities.Order", b =>
@@ -109,7 +109,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("CosumerId");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("Infrastracture.Entities.OrderItem", b =>
@@ -160,7 +160,7 @@ namespace Infrastracture.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ordersItem");
+                    b.ToTable("order_items", (string)null);
                 });
 
             modelBuilder.Entity("Infrastracture.Entities.Product", b =>
@@ -219,7 +219,7 @@ namespace Infrastracture.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("products");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("Infrastracture.Entities.Order", b =>

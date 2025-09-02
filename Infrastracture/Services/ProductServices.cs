@@ -19,7 +19,7 @@ namespace Infrastracture.Services
         private readonly IGenericRepo<OrderItem> _orderItemRepo;
 
         private readonly ILogger<ProductServices> _logger;
-        public ProductServices(IGenericRepo<Product> genericRepo,ILogger<ProductServices> logger,IGenericRepo<OrderItem> orderItemRepo>)
+        public ProductServices(IGenericRepo<Product> genericRepo,ILogger<ProductServices> logger,IGenericRepo<OrderItem> orderItemRepo)
         {
             _productRepo = genericRepo;
             _logger = logger;
