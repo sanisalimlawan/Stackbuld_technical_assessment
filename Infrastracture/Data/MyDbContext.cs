@@ -62,11 +62,11 @@ namespace Infrastracture.Data
                         .HasColumnName("is_deleted")
                         .HasDefaultValue(false);
                     // SOFT DELET
-                    //var param = Expression.Parameter(entityType.ClrType);
-                    //var IsdeletedPop = Expression.Property(param, "IsDeleted");
-                    //var comapreExpr = Expression.Equal(IsdeletedPop, Expression.Constant(false));
-                    //var lamda = Expression.Lambda(comapreExpr, param);
-                    //modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lamda);
+                    var param = Expression.Parameter(entityType.ClrType);
+                    var IsdeletedPop = Expression.Property(param, "IsDeleted");
+                    var comapreExpr = Expression.Equal(IsdeletedPop, Expression.Constant(false));
+                    var lamda = Expression.Lambda(comapreExpr, param);
+                    modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lamda);
                 }
             }
             // product config

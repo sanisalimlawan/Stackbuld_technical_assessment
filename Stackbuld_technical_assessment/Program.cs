@@ -1,3 +1,4 @@
+using Api.config;
 using Core.Interface;
 using Infrastracture.Data;
 using Infrastracture.Services;
@@ -15,7 +16,7 @@ builder.Services.AddTransient(typeof(IGenericRepo<>), typeof(GenericService<>));
 builder.Services.AddTransient<IProductRepo, ProductServices>();
 builder.Services.AddTransient<IOrderRepo, OrderServies>();
 builder.Services.AddTransient<ICostumerRepo, CostumerServices>();
-
+builder.Services.AddHostedService<DbSeed>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

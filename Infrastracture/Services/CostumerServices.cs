@@ -55,7 +55,7 @@ namespace Infrastracture.Services
                 }
                 _costumerRepo.Remove(costumer);
                 await _costumerRepo.SaveChangesAsync();
-                return new ApiResponse((int)HttpStatusCode.OK, "Costumer Added Sucessfully", costumer, true);
+                return new ApiResponse((int)HttpStatusCode.OK, "Costumer Remove Sucessfully", costumer, true);
             }
             catch (Exception ex)
             {

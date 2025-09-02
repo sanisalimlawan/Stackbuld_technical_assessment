@@ -107,6 +107,23 @@ namespace Infrastracture.Services
                 );
             }
         }
+        public async Task<ApiResponse> DeleteProductAsync(Guid id)
+        {
+            try
+            {
+                var product = await _oderRepo.GetByIdAsync(i => i.Id == id);
+                if (product == null)
+                    return new ApiResponse((int)HttpStatusCode.NotFound, "Order Not Found", null, false);
+                _oderRepo.Remove(product);
+                await _oderRepo.SaveChangesAsync();
+                return new ApiResponse((int)HttpStatusCode.OK, "Order Deleted Successfully", null, true);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error while Deleting product with Id {id}");
+                return new ApiResponse((int)HttpStatusCode.InternalServerError, "An UnExpected Error Occur please try again Letter", null, false);
+            }
+        }
 
         public async Task<ApiResponse> GetAllOrders()
         {
@@ -133,7 +150,7 @@ namespace Infrastracture.Services
                 var order = await _oderRepo.GetByIdAsync(x => x.Id == Id, "Costumer", "orderItems.Product");
                 if (order == null)
                 {
-                    return new ApiResponse((int)HttpStatusCode.NotFound, "NO Data Found ", null, false);
+                    return new ApiResponse((int)HttpStatusCode.NotFound, $"Order Not Found With Id {Id} ", null, false);
                 }
                 var formatedData = MapOrderResponse(order);
                 return new ApiResponse((int)HttpStatusCode.OK, "Oders Retreive Successfully", formatedData, true);

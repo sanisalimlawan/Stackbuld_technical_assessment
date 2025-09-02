@@ -80,9 +80,17 @@ namespace Infrastracture.Services
 
         public T Remove(T entity)
         {
-            _dbSet.Remove(entity);
-            
-                return entity;
+            if (entity is BaseEntity baseEntity)
+            {
+                baseEntity.IsDeleted = true;
+                baseEntity.UpdatedAt = DateTime.UtcNow;
+                _dbSet.Update(entity);
+            }
+            else
+            {
+                throw new InvalidOperationException("Entity does not support soft delete. Make sure it inherits from BaseEntity.");
+            }
+            return entity;
         }
 
 

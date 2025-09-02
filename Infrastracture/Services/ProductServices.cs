@@ -1,6 +1,7 @@
 ﻿using Core.DTOs;
 using Core.Interface;
 using Infrastracture.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,14 @@ namespace Infrastracture.Services
     public class ProductServices : IProductRepo
     {
         private readonly IGenericRepo<Product> _productRepo;
+        private readonly IGenericRepo<OrderItem> _orderItemRepo;
+
         private readonly ILogger<ProductServices> _logger;
-        public ProductServices(IGenericRepo<Product> genericRepo,ILogger<ProductServices> logger)
+        public ProductServices(IGenericRepo<Product> genericRepo,ILogger<ProductServices> logger,IGenericRepo<OrderItem> orderItemRepo>)
         {
             _productRepo = genericRepo;
             _logger = logger;
+            _orderItemRepo = orderItemRepo;
         }
         public async Task<ApiResponse> CreateProductAsync(ProductDTO.CreateProductReuest dto)
         {
@@ -61,12 +65,17 @@ namespace Infrastracture.Services
                 var product = await _productRepo.GetByIdAsync(i => i.Id == id);
                 if (product == null)
                     return new ApiResponse((int)HttpStatusCode.NotFound, "Product Not Found", null, false);
+                //Ensure Data Integarity Check if product has orders
+                //bool hasOrders = (await _orderItemRepo.FindAsync(oi => oi.ProductId == product.Id)).Any();
+                //if (hasOrders)
+                //    return new ApiResponse((int)HttpStatusCode.Conflict, "Cannot delete product. It has existing orders.", null, false);
+
                 _productRepo.Remove(product);
                 await _productRepo.SaveChangesAsync();
-                return new ApiResponse((int)HttpStatusCode.OK, "Product Deleted Successfully", product, true);
+                return new ApiResponse((int)HttpStatusCode.OK, "Product Deleted Successfully", null, true);
             }catch(Exception ex)
             {
-                _logger.LogError(ex, $"Error while Deleting product with Id {id}");
+                _logger.LogError(ex, $"Error while Deleting Order with Id {id}");
                 return new ApiResponse((int)HttpStatusCode.InternalServerError, "An UnExpected Error Occur please try again Letter", null, false);
             }
         }
