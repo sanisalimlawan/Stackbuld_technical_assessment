@@ -59,6 +59,27 @@ namespace Api.Controllers
 
             return Ok(response);
         }
+        [HttpGet("GetOrdersByUserId/{Userid}")]
+        public async Task<IActionResult> GetOrdersByUserId(Guid Userid)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse(
+                    (int)HttpStatusCode.BadRequest,
+                    "Invalid data request",
+                    ModelState,
+                    false));
+            }
+
+            var response = await _orderRepo.GetOrdersByCustomerId(Userid);
+
+            if (!response.Success)
+            {
+                return StatusCode(response.Code, response);
+            }
+
+            return Ok(response);
+        }
         [HttpGet("GetAllOders")]
         public async Task<IActionResult> GetAllProduct()
         {

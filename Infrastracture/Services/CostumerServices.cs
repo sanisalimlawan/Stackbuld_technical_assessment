@@ -55,7 +55,7 @@ namespace Infrastracture.Services
                 }
                 _costumerRepo.Remove(costumer);
                 await _costumerRepo.SaveChangesAsync();
-                return new ApiResponse((int)HttpStatusCode.OK, "Costumer Remove Sucessfully", costumer, true);
+                return new ApiResponse((int)HttpStatusCode.NoContent, "Costumer Remove Sucessfully", null, true);
             }
             catch (Exception ex)
             {
@@ -71,9 +71,9 @@ namespace Infrastracture.Services
                 var costumer = await _costumerRepo.GetAllAsync();
                 if (costumer == null || !costumer.Any())
                 {
-                    return new ApiResponse((int)HttpStatusCode.NotFound, "No Data Found", null, false);
+                    return new ApiResponse((int)HttpStatusCode.NoContent, "No Data Found", null, false);
                 }
-                return new ApiResponse((int)HttpStatusCode.NotFound, "Costumers Retrieve successfully", costumer, true);
+                return new ApiResponse((int)HttpStatusCode.OK, "Costumers Retrieve successfully", costumer, true);
             }
             catch (Exception ex)
             {

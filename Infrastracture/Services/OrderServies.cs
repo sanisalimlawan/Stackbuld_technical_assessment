@@ -19,14 +19,14 @@ namespace Infrastracture.Services
     {
         private readonly ILogger<OrderServies> _logger;
         private readonly IGenericRepo<Order> _oderRepo;
-        private readonly IGenericRepo<OrderItem> _orderitem;
+        private readonly IGenericRepo<Costumer> _customerRepo;
         private readonly IGenericRepo<Product> _product;
         private readonly MyDbContext _db;
-        public OrderServies(ILogger<OrderServies> logger, IGenericRepo<Order> orderepo, IGenericRepo<OrderItem> orderItem, MyDbContext db, IGenericRepo<Product> product)
+        public OrderServies(ILogger<OrderServies> logger, IGenericRepo<Order> orderepo, IGenericRepo<Costumer> costumer, MyDbContext db, IGenericRepo<Product> product)
         {
             _logger = logger;
             _oderRepo = orderepo;
-            _orderitem = orderItem;
+            _customerRepo = costumer;
             _db = db;
             _product = product;
         }
@@ -159,6 +159,57 @@ namespace Infrastracture.Services
             {
                 _logger.LogError(ex, $"Error while retreiving the Order");
                 return new ApiResponse((int)HttpStatusCode.InternalServerError, "An UnExpected Error Occur please try again Letter", null, false);
+            }
+        }
+
+
+        public async Task<ApiResponse> GetOrdersByCustomerId(Guid userId)
+        {
+            try
+            {
+                // First check if the customer exists
+                var customerExists = await _customerRepo.GetByIdAsync(x => x.Id == userId);
+                if (customerExists == null)
+                {
+                    return new ApiResponse(
+                        (int)HttpStatusCode.NotFound,
+                        $"Customer with ID {userId} not found.",
+                        null,
+                        false
+                    );
+                }
+
+                // Fetch orders
+                var orders = await _oderRepo.FindAsync(o => o.CosumerId == userId);
+
+                if (orders == null || !orders.Any())
+                {
+                    return new ApiResponse(
+                        (int)HttpStatusCode.NoContent,
+                        $"Customer with ID {userId} has no orders.",
+                        null,
+                        true
+                    );
+                }
+
+                var formattedData = orders.Select(o => MapOrderResponse(o));
+
+                return new ApiResponse(
+                    (int)HttpStatusCode.OK,
+                    "Orders retrieved successfully.",
+                    formattedData,
+                    true
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while retrieving the orders");
+                return new ApiResponse(
+                    (int)HttpStatusCode.InternalServerError,
+                    "An unexpected error occurred, please try again later.",
+                    null,
+                    false
+                );
             }
         }
 

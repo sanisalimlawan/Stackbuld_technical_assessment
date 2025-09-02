@@ -15,6 +15,11 @@ namespace Core.DTOs
             public decimal Price { get; set; }
             public int StockQuantity { get; set; }
         }
+        public class RestockRequest
+        {
+            public int Quantity { get; set; }
+        }
+
         public class UpdateProductDTO
         {
             public Guid Id { get; set; }

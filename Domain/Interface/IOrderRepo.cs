@@ -13,6 +13,7 @@ namespace Core.Interface
         public Task<ApiResponse> PlaceOrder(PlaceOrderRequest dto);
         public Task<ApiResponse> GetAllOrders();
         public Task<ApiResponse> GetOrdersById(Guid id);
+        public Task<ApiResponse> GetOrdersByCustomerId(Guid userId);
         public Task<ApiResponse> DeleteProductAsync(Guid id);
     }
 }

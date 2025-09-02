@@ -72,7 +72,7 @@ namespace Infrastracture.Services
 
                 _productRepo.Remove(product);
                 await _productRepo.SaveChangesAsync();
-                return new ApiResponse((int)HttpStatusCode.OK, "Product Deleted Successfully", null, true);
+                return new ApiResponse((int)HttpStatusCode.NoContent, "Product Deleted Successfully", null, true);
             }catch(Exception ex)
             {
                 _logger.LogError(ex, $"Error while Deleting Order with Id {id}");
@@ -86,13 +86,59 @@ namespace Infrastracture.Services
             {
                 var product = await _productRepo.GetAllAsync();
                 if (!product.Any())
-                    return new ApiResponse((int)HttpStatusCode.NotFound, "No Data Found", null, false);
+                    return new ApiResponse((int)HttpStatusCode.NoContent , "No Data Found", null, false);
                 var formatedProduct = product.Select(p => MapProductResponse(p));
                 return new ApiResponse((int)HttpStatusCode.OK, "Product Retrieve Successfully", formatedProduct, true);
             }catch(Exception ex)
             {
                 _logger.LogError(ex, $"Error while Retreiving All product ");
                 return new ApiResponse((int)HttpStatusCode.InternalServerError, "An UnExpected Error Occur please try again Letter", null, false);
+            }
+        }
+        public async Task<ApiResponse> RestockProductAsync(Guid productId, int quantity)
+        {
+            try
+            {
+                var product = await _productRepo.GetByIdAsync(x => x.Id == productId);
+                if (product == null)
+                {
+                    return new ApiResponse(
+                        (int)HttpStatusCode.NotFound,
+                        $"Product with ID {productId} not found.",
+                        null,
+                        false
+                    );
+                }
+
+                if (quantity <= 0)
+                {
+                    return new ApiResponse(
+                        (int)HttpStatusCode.BadRequest,
+                        "Quantity must be greater than zero.",
+                        null,
+                        false
+                    );
+                }
+
+                product.StockQuantity += quantity;
+                _productRepo.Update(product);
+
+                return new ApiResponse(
+                    (int)HttpStatusCode.OK,
+                    $"{quantity} units added to product {product.Name}. New stock: {product.StockQuantity}",
+                    new { product.Id, product.Name, product.StockQuantity },
+                    true
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while restocking product");
+                return new ApiResponse(
+                    (int)HttpStatusCode.InternalServerError,
+                    "An unexpected error occurred, please try again later.",
+                    null,
+                    false
+                );
             }
         }
 

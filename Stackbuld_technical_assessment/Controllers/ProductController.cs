@@ -80,6 +80,28 @@ namespace Api.Controllers
 
             return Ok(response);
         }
+        [HttpPost("{id}/restock")]
+        public async Task<IActionResult> Restock(Guid id, [FromBody] RestockRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse(
+                    (int)HttpStatusCode.BadRequest,
+                    "Invalid data request",
+                    ModelState,
+                    false));
+            }
+
+            var response = await _productRepo.RestockProductAsync(id, request.Quantity);
+
+            if (!response.Success)
+            {
+                return StatusCode(response.Code, response);
+            }
+
+            return Ok(response);
+        }
+
         [HttpGet("GetAllProduct")]
         public async Task<IActionResult> GetAllProduct()
         {

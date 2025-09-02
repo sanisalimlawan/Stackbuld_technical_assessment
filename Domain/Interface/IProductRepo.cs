@@ -15,6 +15,7 @@ namespace Core.Interface
         public Task<ApiResponse> GetAllProductsAsync();
         public Task<ApiResponse> UpdateProductAsync(UpdateProductDTO dto,Guid id);
         public Task<ApiResponse> DeleteProductAsync(Guid id);
+        public Task<ApiResponse> RestockProductAsync(Guid productId, int quantity);
 
 
     }
