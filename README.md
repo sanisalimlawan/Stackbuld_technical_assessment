@@ -39,5 +39,12 @@ It demonstrates **clean architecture, scalable design, and real-world readiness*
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/ecommerce-api.git
-cd ecommerce-api
+https://github.com/sanisalimlawan/Stackbuld_technical_assessment.git
+cd Stackbuld_technical_assessment
+| Method | Endpoint                                             | Description                    |
+| ------ | ---------------------------------------------------- | ------------------------------ |
+| POST   | /api/Stackbuld\_Ecommerce/PlaceOrder                 | Place new order                |
+| GET    | /api/Stackbuld\_Ecommerce/GetOrderById/{id}          | Get order details              |
+| GET    | /api/Stackbuld\_Ecommerce/GetAllOrders               | Retrieve all orders            |
+| GET    | /api/Stackbuld\_Ecommerce/GetOrdersByUserId/{userId} | Get orders for a specific user |
+
