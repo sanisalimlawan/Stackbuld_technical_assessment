@@ -59,11 +59,21 @@ Run the API
 | GET    | /api/Stackbuld_Ecommerce/GetAllCostumer            | Retrieve all costumers           
 | PUT    | /api/Stackbuld_Ecommerce/UpdateCostumer/{id} | Update costumer by his ID
 | GET    | /api/Stackbuld_Ecommerce/GetCostumerById/{id} | Get costumer by his ID
+# Product
+| Method | Endpoint                                             | Description                    
+|
+| POST   | /api/Stackbuld_Ecommerce/CreateProduct                 | Create new Product                
+| GET    | /api/Stackbuld_Ecommerce/GetProductById/{id}          | Get Product details              
+| GET    | /api/Stackbuld\_Ecommerce/GetAllProduct               | Retrieve all Product           
+| PUT    | /api/Stackbuld_Ecommerce/UpdateProduct/{id} |Update specific Product
+| DELETE    | /api/Stackbuld_Ecommerce/DeleteProduct/{id}} |Remove Product
+| POST    | /api/Stackbuld_Ecommerce/{id}/restock} |Restock Product
+
 # Order
 | Method | Endpoint                                             | Description                    
 |
 | POST   | /api/Stackbuld\_Ecommerce/PlaceOrder                 | Place new order                
 | GET    | /api/Stackbuld\_Ecommerce/GetOrderById/{id}          | Get order details              
 | GET    | /api/Stackbuld\_Ecommerce/GetAllOrders               | Retrieve all orders            
-| GET    | /api/Stackbuld\_Ecommerce/GetOrdersByUserId/{userId} | Get orders for a specific user 
+| GET    | /api/Stackbuld\_Ecommerce/GetOrdersByUserId/{userId} | Get orders for a specific user
 
