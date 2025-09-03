@@ -34,6 +34,16 @@ It demonstrates **clean architecture, scalable design, and real-world readiness*
 - **Swagger** for API documentation
 
 ---
+# 📝 Assumptions
+
+Users and products are pre-seeded for testing purposes.
+
+Each order can contain multiple products.
+
+Stock deduction occurs only if all items in an order are available.
+
+Soft deletes are used to allow data recovery and auditing.
+
 
 ## ⚙️ Installation & Setup
 
