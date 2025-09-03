@@ -37,14 +37,26 @@ It demonstrates **clean architecture, scalable design, and real-world readiness*
 
 ## ⚙️ Installation & Setup
 
+
 ### 1. Clone the repo
 ```bash
 https://github.com/sanisalimlawan/Stackbuld_technical_assessment.git
 cd Stackbuld_technical_assessment
-| Method | Endpoint                                             | Description                    |
-| ------ | ---------------------------------------------------- | ------------------------------ |
-| POST   | /api/Stackbuld\_Ecommerce/PlaceOrder                 | Place new order                |
-| GET    | /api/Stackbuld\_Ecommerce/GetOrderById/{id}          | Get order details              |
-| GET    | /api/Stackbuld\_Ecommerce/GetAllOrders               | Retrieve all orders            |
-| GET    | /api/Stackbuld\_Ecommerce/GetOrdersByUserId/{userId} | Get orders for a specific user |
+````
+### 2. Navigate into the Project Folder
+```bash
+cd Stackbuld_technical_assessment
+```
+### Run the API
+```bsah
+Run the API
+```
+
+# Order
+| Method | Endpoint                                             | Description                    
+|
+| POST   | /api/Stackbuld\_Ecommerce/PlaceOrder                 | Place new order                
+| GET    | /api/Stackbuld\_Ecommerce/GetOrderById/{id}          | Get order details              
+| GET    | /api/Stackbuld\_Ecommerce/GetAllOrders               | Retrieve all orders            
+| GET    | /api/Stackbuld\_Ecommerce/GetOrdersByUserId/{userId} | Get orders for a specific user 
 
