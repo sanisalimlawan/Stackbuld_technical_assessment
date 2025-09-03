@@ -51,7 +51,14 @@ cd Stackbuld_technical_assessment
 ```bsah
 Run the API
 ```
-
+# Costumers
+| Method | Endpoint                                             | Description                    
+|
+| POST   | /api/Stackbuld_Ecommerce/Createcostumer                | add new Costumer                
+| DELETE    | /api/Stackbuld_Ecommerce/DeleteCostumer/{id}         | remove costumer             
+| GET    | /api/Stackbuld_Ecommerce/GetAllCostumer            | Retrieve all costumers           
+| PUT    | /api/Stackbuld_Ecommerce/UpdateCostumer/{id} | Update costumer by his ID
+| GET    | /api/Stackbuld_Ecommerce/GetCostumerById/{id} | Get costumer by his ID
 # Order
 | Method | Endpoint                                             | Description                    
 |
